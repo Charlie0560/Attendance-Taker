@@ -92,6 +92,9 @@
     border: 1px solid;
     font-size: 10px;
 }
+.menuicon a{
+  color: black;
+}
 @media (max-width: 600px) {
     .homepageheader {
         padding-inline: 0%;
@@ -127,6 +130,9 @@
     .otpcontainer input{
         width: 270px
 
+    }
+    .menuicon a{
+      color: black;
     }
 }
 
