@@ -13,6 +13,7 @@ function SignUp() {
           <input type="Name" placeholder="Full Name(As Per College Id Card)" />
           <input type="Password" placeholder="Password" />
           <input type="text" placeholder="Roll No." />
+          <input type="text" placeholder="Divsion" />
           <input type="text" placeholder="College ID" />
           <center>
             <button class="button-17">Submit</button>

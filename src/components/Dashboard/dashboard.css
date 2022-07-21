@@ -16,6 +16,13 @@
     padding: 2px;
     width: 300px;
 }
+
+.dashboardtable select{
+    height: 30px;
+    width: 100px;
+    padding: 5px;
+    margin-bottom: 10px;
+}
 .sessiondetails input:focus,
 .generator input:focus {
     outline: none;
@@ -45,7 +52,7 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        row-gap: 10px;
+        row-gap: 3px;
         /* margin-top: 15%; */
     }
     .generator input{
