@@ -1,9 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import "./homepage.css";
 import "animate.css";
 import Header from "./Header";
+import axios from "axios";
+import { useSelector } from "react-redux";
 
 function Homepage() {
+  const [code, setCode] = useState("");
+  const user = useSelector((state) => state.user.user.user);
+  
+  const handleSubmit = async () => {
+    try {
+      const data = {
+        code: code,
+        students: {
+          rollno: user.rollno,
+          studentname: user.fullname,
+        },
+      };
+      const giveatt = await axios.put("/attendance/giveattendace", data);
+      console.log(giveatt);
+      window.alert("Attendance given successfully");
+    } catch (err) {
+      console.log(err);
+      window.alert("Code is expired or wrong");
+    }
+  };
   return (
     <div className="homepage">
       <Header />
@@ -13,9 +35,11 @@ function Homepage() {
             <p>Enter OTP here</p>
             <i class="fa-solid fa-info"></i>
           </div>
-          <input type="number" />
+          <input type="text" onChange={(e) => setCode(e.target.value)} />
           <center>
-            <button class="button-17">Submit</button>
+            <button class="button-17" type="submit" onClick={handleSubmit}>
+              Submit
+            </button>
           </center>
         </div>
       </div>

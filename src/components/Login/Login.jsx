@@ -9,40 +9,53 @@ function Login() {
   const [pass, setPass] = useState("");
   const dispatch = useDispatch();
 
-  const handleSubmit = async (e)=>{
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    try{
-      const res = await axios.post("/student/login",{
+    try {
+      const res = await axios.post("/student/login", {
         email: mail,
-        password: pass
+        password: pass,
       });
 
-      dispatch(login({
-        user : res.data,
-        loggedIn: true
-      }));
-    }
-    catch(err){
+      dispatch(
+        login({
+          user: res.data,
+          loggedIn: true,
+        })
+      );
+    } catch (err) {
       console.log(err);
     }
-
-  }
+  };
   return (
     <div className="loginpage">
       <h1>ATTENDANCE TAKER</h1>
       <div className="otpbox loginbox">
         <div className="otpcontainer logincontainer">
-          <form onSubmit={(e)=>handleSubmit(e)}>
-          <div className="otphead loginhead">
-            <p>Login</p>
-          </div>
-          <input type="email" placeholder="Email" value={mail} onChange={(e)=>setMail(e.target.value)}/>
-          <input type="Password" placeholder="Password" value={pass} onChange={(e)=>setPass(e.target.value)} />
-          <center>
-            <button class="button-17" type="submit">Submit</button>
-            <br /><br />
-            Don't have an account ? <a href="/signup">SignUp</a>
-          </center>
+          <form onSubmit={(e) => handleSubmit(e)}>
+            <div className="otphead loginhead">
+              <p>Login</p>
+            </div>
+            <input
+              type="email"
+              placeholder="Email"
+              value={mail}
+              onChange={(e) => setMail(e.target.value)}
+            />
+            <input
+              type="Password"
+              placeholder="Password"
+              value={pass}
+              onChange={(e) => setPass(e.target.value)}
+            />
+            <center>
+              <button class="button-17" type="submit">
+                Submit
+              </button>
+              <br />
+              <br />
+              Don't have an account ? <a href="/signup">SignUp</a>
+            </center>
           </form>
         </div>
       </div>

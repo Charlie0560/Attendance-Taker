@@ -68,3 +68,15 @@
         text-align: center;
     }
 }
+.data{
+    display: none;
+}
+.download{
+    border: 1px solid black;
+    padding: 3px;
+    cursor: pointer;
+}
+.download:hover{
+    background-color: gray;
+    color: white;
+}

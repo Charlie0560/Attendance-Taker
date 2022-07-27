@@ -46,8 +46,15 @@ function Dashboard() {
   const [div, setDiv] = useState("");
   const [code, setCode] = useState(0);
   const [lista, setLista] = useState([]);
-  // const [latest, setLatest] = useState(0);
   const [filter, setFilter] = useState("all");
+
+  function sleep(milliseconds) {
+    const date = Date.now();
+    let currentDate = null;
+    do {
+      currentDate = Date.now();
+    } while (currentDate - date < milliseconds);
+  }
 
   const handleSubmit = async (e) => {
     const data = {
@@ -58,12 +65,23 @@ function Dashboard() {
       generatedcode: code,
     };
     try {
-      await axios.post("/attendance/takeattendace", data);
+      const attdata = await axios.post("/attendance/takeattendace", data);
       attendances();
+      sleep(30000);
+      axios.put(`/attendance/deletecode/${attdata.data._id}`);
     } catch (err) {
       console.log(err);
     }
   };
+  // const deletefunc = async (id) => {
+  //   console.log("we are here");
+  //   try {
+  //     await ;
+  //     window.alert("Deleted");
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
   const attendances = async () => {
     try {
       const divdata = {
@@ -139,7 +157,7 @@ function Dashboard() {
           </button>
         </div>
         <p className="code">
-          {/* <b>Code : {latest}</b> */}
+          <b>Code : {code}</b>
         </p>
       </div>
       {/* </form> */}
