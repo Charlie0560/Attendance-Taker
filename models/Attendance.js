@@ -18,7 +18,7 @@ var AttedanceSchema = new mongoose.Schema(
       type: Number,
     },
     generatedcode: {
-      type: Number,
+      type: String,
     },
     date: {
       type: Date,
@@ -39,4 +39,4 @@ var AttedanceSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Attendace", AttedanceSchema);
+module.exports = mongoose.model("Attendances", AttedanceSchema);
