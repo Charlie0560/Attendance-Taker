@@ -52,10 +52,10 @@ router.get("/giveattendace/:id", async (req, res) => {
   }
 });
 
-// get attendance by teacher name
-router.get("/getbyteacher", async (req, res) => {
+// get attendance by code
+router.get("/getbycode", async (req, res) => {
   try {
-    const attendance = await Attendance.find({ teacher: req.body.teacher });
+    const attendance = await Attendance.find({ generatedcode: req.body.code });
     res.status(200).json(attendance);
   } catch (err) {
     console.log("Teacher name is not found");
@@ -67,16 +67,18 @@ router.get("/getbyteacher", async (req, res) => {
 router.get("/getall", async (req, res) => {
   try {
     const data = await Attendance.find();
+    data.sort((p1, p2) => {
+      return new Date(p2.createdAt) - new Date(p1.createdAt);
+    })
     res.status(200).json(data);
   } catch (err) {
     res.status(500).json(err);
   }
 });
-
 // get attendance by division
-router.get("/getbydiv", async (req, res) => {
+router.get("/getbydiv/:divname", async (req, res) => {
   try {
-    const div = req.body.div;
+    const div = req.params.divname;
     const data = await Attendance.find({ div });
     res.status(200).json(data);
   } catch (err) {

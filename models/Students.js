@@ -24,10 +24,6 @@ var StudentsSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    collegeid: {
-      type: String,
-      required: true,
-    },
     div: {
       type: String,
     },

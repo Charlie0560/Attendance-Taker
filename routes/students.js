@@ -5,6 +5,8 @@ const bcrypt = require("bcrypt");
 router.post("/signup", async (req, res) => {
   try {
     const { fullname, email, password, rollno, div, collegeid } = req.body;
+    const emailRegex = /@ms.pict.edu|@pictsctr.onmicrosoft.com|@pict.edu/;
+    if (!emailRegex.test(email)) throw "Email is not supported";
     if (password.length < 6) {
       res.status(500).json("Password must be of atleast 6 characters");
     }
@@ -16,7 +18,6 @@ router.post("/signup", async (req, res) => {
       password: hashedpass,
       rollno,
       div,
-      collegeid,
     });
     const student = await newStudent.save();
     res.status(200).json(student);
