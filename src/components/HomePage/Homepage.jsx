@@ -4,10 +4,9 @@ import "animate.css";
 import Header from "./Header";
 
 function Homepage() {
-  
   return (
     <div className="homepage">
-      <Header/>
+      <Header />
       <div className="otpbox">
         <div className="otpcontainer">
           <div className="otphead">

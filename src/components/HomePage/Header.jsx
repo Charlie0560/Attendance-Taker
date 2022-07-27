@@ -1,7 +1,14 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import "./homepage.css";
+import { logout } from "../../redux/userSlice";
 
 function Header() {
+  const dispatch = useDispatch();
+  const handleLogout = (e) => {
+    e.preventDefault();
+    dispatch(logout({ user: null, loggedIn: false }));
+  };
   const showitems = () => {
     document.getElementById("menuitem1").className =
       "menuicon menuicon2 animate__animated animate__fadeInRight";
@@ -36,11 +43,11 @@ function Header() {
         </div>
         <div className="menuitems " id="menuitem2">
           <a href="/dashboard">
-          <i class="fa-solid fa-server"></i>
+            <i class="fa-solid fa-server"></i>
           </a>
         </div>
-        <div className="menuitems" id="menuitem3">
-          <a href="/login"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+        <div className="menuitems" id="menuitem3" onClick={handleLogout}>
+            <i class="fa-solid fa-arrow-right-from-bracket"></i>
         </div>
       </div>
     </div>

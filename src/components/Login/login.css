@@ -18,10 +18,13 @@
 }
 .loginpage h1 {
   text-align: center;
-  margin-top: 5%;
+  margin-top: 2%;
 }
 .loginbox {
   margin-top: 0%;
+}
+input:focus{
+  outline: none;
 }
 @media (max-width: 800px) {
     .logincontainer{

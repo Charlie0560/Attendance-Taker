@@ -57,7 +57,8 @@
     width: 50%;
     text-align: center;
     margin: 05%;
-    height: 50vh;
+    min-height: 50vh;
+    max-height: max-content;
     /* background-color: yellow; */
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     border-radius: 2%;

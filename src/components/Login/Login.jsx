@@ -1,22 +1,49 @@
-import React from "react";
+import axios from "axios";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { login } from "../../redux/userSlice";
 import "./login.css";
 
 function Login() {
+  const [mail, setMail] = useState("");
+  const [pass, setPass] = useState("");
+  const dispatch = useDispatch();
+
+  const handleSubmit = async (e)=>{
+    e.preventDefault();
+    try{
+      const res = await axios.post("/student/login",{
+        email: mail,
+        password: pass
+      });
+
+      dispatch(login({
+        user : res.data,
+        loggedIn: true
+      }));
+    }
+    catch(err){
+      console.log(err);
+    }
+
+  }
   return (
     <div className="loginpage">
       <h1>ATTENDANCE TAKER</h1>
       <div className="otpbox loginbox">
         <div className="otpcontainer logincontainer">
+          <form onSubmit={(e)=>handleSubmit(e)}>
           <div className="otphead loginhead">
             <p>Login</p>
           </div>
-          <input type="text" placeholder="College ID" />
-          <input type="Password" placeholder="Password" />
+          <input type="email" placeholder="Email" value={mail} onChange={(e)=>setMail(e.target.value)}/>
+          <input type="Password" placeholder="Password" value={pass} onChange={(e)=>setPass(e.target.value)} />
           <center>
-            <button class="button-17">Submit</button>
-            <br />
+            <button class="button-17" type="submit">Submit</button>
+            <br /><br />
             Don't have an account ? <a href="/signup">SignUp</a>
           </center>
+          </form>
         </div>
       </div>
     </div>

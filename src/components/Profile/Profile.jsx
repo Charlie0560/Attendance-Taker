@@ -1,22 +1,27 @@
 import React from "react";
 import Header from "../HomePage/Header";
 import profilepic from "./profile.webp";
-import './profile.css'
+import "./profile.css";
+import { useSelector } from "react-redux";
+
 
 function Profile() {
+  const user = useSelector((state)=>state.user.user.user);
+  console.log(user);
   return (
     <div>
       <Header />
       <div className="profilebox">
         <div className="box profile">
-         <center>
-         <div className="userimg">
-            <img src={profilepic} alt="" />
-          </div>
-          <p>Chaitanya Lokhande</p>
-          <p>Roll No. 32331</p>
-          <p>Enrollment no. E2k20104080</p>
-         </center>
+          <center>
+            <div className="userimg">
+              <img src={profilepic} alt="" />
+            </div>
+            <p>{user.fullname}</p>
+            <p>Roll No. {user.rollno}</p>
+            {/* <p>{user.email}</p> */}
+            <p> {user.email}</p>
+          </center>
         </div>
       </div>
     </div>
