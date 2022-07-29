@@ -1,10 +1,11 @@
 const router = require("express").Router();
 const Students = require("../models/Students");
 const bcrypt = require("bcrypt");
+const Teachers = require("../models/Teachers");
 
 router.post("/signup", async (req, res) => {
   try {
-    const { fullname, email, password, rollno, div, collegeid } = req.body;
+    const { fullname, email, password, rollno, div } = req.body;
     const emailRegex = /@ms.pict.edu|@pictsctr.onmicrosoft.com|@pict.edu/;
     if (!emailRegex.test(email)) throw "Email is not supported";
     if (password.length < 6) {
@@ -21,36 +22,47 @@ router.post("/signup", async (req, res) => {
     });
     const student = await newStudent.save();
     res.status(200).json(student);
-    console.log(student);
   } catch (err) {
     res.status(500).json(err);
-    console.log(err);
   }
 });
 
 router.post("/login", async (req, res) => {
-  try {
     const student = await Students.findOne({ email: req.body.email });
     if (!student) {
-      errors.email = "student not found";
-      res.status(404).json({ errors });
-      return;
+      try {
+        const teacher = await Teachers.findOne({ email: req.body.email });
+        if (!teacher) {
+          errors.email = "teacher/student not found";
+          res.status(404).json({ errors });
+          return;
+        }
+        const validpassword = await bcrypt.compare(
+          req.body.password,
+          teacher.password
+        );
+        if (!validpassword) {
+          errors.validpassword = "Wrong Credentials";
+          res.status(400).json({ errors });
+          return;
+        }
+        res.status(200).json(teacher);
+      } catch (err) {
+        res.status(500).json(err);
+      }
     }
-    const validpassword = await bcrypt.compare(
-      req.body.password,
-      student.password
-    );
-    if (!validpassword) {
-      errors.validpassword = "Wrong Credentials";
-      res.status(400).json({ errors });
-      return;
+    if(student !== null){
+      const validpassword = await bcrypt.compare(
+        req.body.password,
+        student.password
+      );
+      if (!validpassword) {
+        errors.validpassword = "Wrong Credentials";
+        res.status(400).json({ errors });
+        return;
+      }
+      res.status(200).json(student);
     }
-    res.status(200).json(student);
-    console.log(student);
-  } catch (err) {
-    res.status(500).json(err);
-    console.log(err);
-  }
 });
 
 // get all students
@@ -67,6 +79,5 @@ router.get("/allstudents/div", async (req, res) => {
   const students = await Students.find({ div: division }).sort({ rollno: 1 });
   res.status(200).json(students);
 });
-
 
 module.exports = router;

@@ -19,6 +19,17 @@ var TeacherSchema = new mongoose.Schema({
     department:{
         type: String,
         required: true
+    },
+    uniqueID:{
+        type: String,
+        required: true
+    },
+    superadminid:{
+        type: String
+    },
+    role:{
+        type:String,
+        default: "teacher"
     }
 
 },{timestamps: true});
