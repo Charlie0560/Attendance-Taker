@@ -1,3 +1,9 @@
 a{
     color: black;
 }
+.errdiv{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15%;
+}

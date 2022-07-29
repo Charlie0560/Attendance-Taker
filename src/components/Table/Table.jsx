@@ -73,15 +73,15 @@ function BasicTable({ attenddata }) {
                     </GridToolbar>
                     <GridColumn
                       className="data"
-                      field="studentname"
-                      title="Student Name"
-                      width="350px"
-                    />
-                    <GridColumn
-                      className="data"
                       field="rollno"
                       title="Roll no."
                       width="50px"
+                    />
+                    <GridColumn
+                      className="data"
+                      field="studentname"
+                      title="Student Name"
+                      width="350px"
                     />
                     {/* <GridColumn field="UnitPrice" title="Price" /> */}
                     {/* <GridColumn field="UnitsInStock" title="In stock" /> */}

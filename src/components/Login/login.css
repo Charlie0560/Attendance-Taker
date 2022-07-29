@@ -1,6 +1,9 @@
 .logincontainer input {
   font-size: 14px;
 }
+.alert{
+  color: red;
+}
 .logincontainer {
   padding-bottom: 4%;
   /* padding-top: 5%; */

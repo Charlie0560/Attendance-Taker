@@ -18,7 +18,9 @@ function Profile() {
               <img src={profilepic} alt="" />
             </div>
             <p>{user.fullname}</p>
-            <p>Roll No. {user.rollno}</p>
+            {user.rollno && <p>Roll No. {user.rollno}</p>}
+            {user.uniqueID && <p>Unique ID {user.uniqueID}</p>}
+            {user.department && <p>Department: {user.department}</p>}
             {/* <p>{user.email}</p> */}
             <p> {user.email}</p>
           </center>

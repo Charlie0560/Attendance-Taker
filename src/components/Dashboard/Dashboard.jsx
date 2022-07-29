@@ -3,8 +3,10 @@ import Header from "../HomePage/Header";
 import "./dashboard.css";
 import BasicTable from "../Table/Table";
 import axios from "axios";
+// import { useSelector } from "react-redux";
 
 function Dashboard() {
+  // const user = useSelector((state)=> state.user.user.user)
   const divisions = [
     { div: "All" },
     { div: "FE1" },
@@ -151,8 +153,9 @@ function Dashboard() {
             type="Number"
             placeholder="Generate Code"
             onChange={(e) => setCode(e.target.value)}
+            maxLength="6"
           />
-          <button type="submit" onClick={handleSubmit}>
+          <button type="submit" className="button" onClick={handleSubmit}>
             Generate
           </button>
         </div>

@@ -33,11 +33,11 @@ function Homepage() {
         <div className="otpcontainer">
           <div className="otphead">
             <p>Enter OTP here</p>
-            <i class="fa-solid fa-info"></i>
+            <i className="fa-solid fa-info"></i>
           </div>
-          <input type="text" onChange={(e) => setCode(e.target.value)} />
+          <input type="text" maxLength="6" onChange={(e) => setCode(e.target.value)} />
           <center>
-            <button class="button-17" type="submit" onClick={handleSubmit}>
+            <button className="button-17" type="submit" onClick={handleSubmit}>
               Submit
             </button>
           </center>

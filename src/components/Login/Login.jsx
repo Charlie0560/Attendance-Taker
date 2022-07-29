@@ -16,6 +16,10 @@ function Login() {
         email: mail,
         password: pass,
       });
+      // const teachersres= await axios.post("/teacher/login", {
+      //   email: mail,
+      //   password: pass,
+      // });
 
       dispatch(
         login({
@@ -25,6 +29,8 @@ function Login() {
       );
     } catch (err) {
       console.log(err);
+      document.getElementById("errdiv").innerHTML = "Wrong Credentials";
+      // setTimeout(document.getElementById("errdiv").innerHTML = null,30000)
     }
   };
   return (
@@ -38,21 +44,22 @@ function Login() {
             </div>
             <input
               type="email"
-              placeholder="Email"
+              placeholder="Email(...@ms.pict.edu)"
               value={mail}
               onChange={(e) => setMail(e.target.value)}
             />
             <input
-              type="Password"
+              type="password"
               placeholder="Password"
               value={pass}
               onChange={(e) => setPass(e.target.value)}
             />
             <center>
-              <button class="button-17" type="submit">
+              <button className="button-17" type="submit">
                 Submit
               </button>
               <br />
+              <div className="alert" id="errdiv"></div>
               <br />
               Don't have an account ? <a href="/signup">SignUp</a>
             </center>

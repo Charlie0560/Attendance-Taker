@@ -18,45 +18,70 @@ function SignUp() {
       password: password.current.value,
       rollno: rollno.current.value,
     };
+    if (!fullname || !email || !password || !rollno || !div) {
+      document.getElementById("alert").innerHTML = "All Fields Are required.";
+    }
     if (password.current.value.length < 6) {
-      document.getElementById("errordiv").innerHTML =
+      document.getElementById("alert").innerHTML =
         "Password Should be Minimum of 6 Characters";
     } else {
-      if (password.current.value.length < 10) {
-        try {
-          await axios.post("/student/signup", data);
-          window.location.replace("/login");
-        } catch (err) {
-          console.log(err);
-          document.getElementById("errordiv").innerHTML =
-            "Something wents wrong.";
-        }
-      }else{
-        document.getElementById("errordiv").innerHTML =
-        "Password Should be Max of 10 Characters";
+      try {
+        await axios.post("/student/signup", data);
+        window.location.replace("/login");
+      } catch (err) {
+        // console.log(err);
+        window.alert("Something wents wrong");
       }
     }
   };
   return (
     <div className="loginpage">
       <h1>ATTENDANCE TAKER</h1>
-      <div className="otpbox loginbox">
-        <div className="otpcontainer logincontainer">
-          <div className="otphead loginhead">
-            <p>Sign Up</p>
+      <form onSubmit={handleSubmit}>
+        <div className="otpbox loginbox">
+          <div className="otpcontainer logincontainer">
+            <div className="otphead loginhead">
+              <p>Sign Up</p>
+            </div>
+            <input
+              required
+              type="text"
+              placeholder="Full Name(As Per College Id Card)"
+              ref={fullname}
+            />
+            <input
+              required
+              type="mail"
+              placeholder="Email(...@ms.pict.edu)"
+              ref={email}
+            />
+            <input
+              required
+              type="Password"
+              placeholder="Password (Min 6 Characters)"
+              minLength="6"
+              maxLength="10"
+              ref={password}
+            />
+            <input required type="text" placeholder="Roll No." ref={rollno} />
+            <input
+              required
+              type="text"
+              placeholder="Divsion(eg.TE7)"
+              ref={div}
+            />
+            <center>
+              <button className="button-17" type="submit">
+                Submit
+              </button>
+              <br />
+              <div className="alert" id="errdiv"></div>
+              <br />
+              Already have an account ? <a href="/login">Login</a>
+            </center>
           </div>
-          <input type="text" placeholder="Full Name(As Per College Id Card)" ref={fullname}/>
-          <input type="mail" placeholder="email" ref={email} />
-          <input type="Password" placeholder="Password" minlength="6" maxLength="10" ref={password}/>
-          <input type="text" placeholder="Roll No." ref={rollno}/>
-          <input type="text" placeholder="Divsion" ref={div}/>
-          <center>
-            <button class="button-17" type="submit" onClick={handleSubmit}>Submit</button>
-            <br /><br />
-            Already have an account ? <a href="/login">Login</a>
-          </center>
         </div>
-      </div>
+      </form>
     </div>
   );
 }
