@@ -47,7 +47,10 @@ function App() {
                   <>
                     <Header />{" "}
                     <div className="errdiv">
+                      <center>
                       <h2>Sorry ,You are not a teacher or admin</h2>
+
+                      </center>
                     </div>
                   </>
                 )

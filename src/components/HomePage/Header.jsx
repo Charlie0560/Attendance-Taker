@@ -33,8 +33,6 @@ function Header() {
       "menuicon menuicon2 animate__animated animate__fadeInRight";
     document.getElementById("menuitem5").className =
       "menuicon menuicon2 animate__animated animate__fadeInRight";
-    // {user.superadminid && user.superadminid === "5432112345" && (document.getElementById("menuitem3").className =
-    //   "menuicon menuicon2 animate__animated animate__fadeInRight ")}
     {user.role === "teacher" && (document.getElementById("menuitem2").className =
       "menuicon menuicon2 animate__animated animate__fadeInRight")}
   };
