@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../HomePage/Header";
 import "./dashboard.css";
 import BasicTable from "../Table/Table";
 import axios from "axios";
+import Defaulttable from "../Table/Defaulttable";
 // import { useSelector } from "react-redux";
 
 function Dashboard() {
@@ -69,7 +70,7 @@ function Dashboard() {
     try {
       const attdata = await axios.post("/attendance/takeattendace", data);
       attendances();
-      sleep(30000);
+      sleep(20000);
       axios.put(`/attendance/deletecode/${attdata.data._id}`);
     } catch (err) {
       console.log(err);
@@ -84,26 +85,28 @@ function Dashboard() {
   //     console.log(err);
   //   }
   // };
+  const [divdata, setDivdata] = useState([]);
   const attendances = async () => {
     try {
       const divdata = {
         div: filter,
       };
-      if (divdata.div !== "all") {
-        const res = await axios.get(`/attendance/getbydiv/${divdata.div}`);
-        setLista(
-          res.data.sort((p1, p2) => {
-            return new Date(p2.createdAt) - new Date(p1.createdAt);
-          })
-        );
-        res.data(lista[0].generatedcode);
-      } else {
+      if (divdata.div === "all") {
         const res = await axios.get(`/attendance/getall`);
         setLista(
           res.data.sort((p1, p2) => {
             return new Date(p2.createdAt) - new Date(p1.createdAt);
           })
         );
+        // res.data(lista[0].generatedcode);
+      } else {
+        const res = await axios.get(`/attendance/getbydiv/${divdata.div}`);
+        // setLista(
+        //   res.data.sort((p1, p2) => {
+        //     return new Date(p2.createdAt) - new Date(p1.createdAt);
+        //   })
+        // );
+        setDivdata(res.data);
         // setLatest(res.data[0].generatedcode);
       }
     } catch (err) {
@@ -111,13 +114,16 @@ function Dashboard() {
     }
   };
 
+  useEffect(() => {
+    attendances();
+  });
   // setLatest();
   // console.log(lista)
-  if (filter !== "all") {
-    attendances();
-  } else {
-    attendances();
-  }
+  // if (filter !== "all") {
+  //   attendances();
+  // } else {
+  //   attendances();
+  // }
   // const latest = lista[0].generatedcode;
   // console.log();
 
@@ -169,14 +175,15 @@ function Dashboard() {
         <h3>Dashboard</h3>
         <select name="div" id="div" onChange={(e) => setFilter(e.target.value)}>
           {divisions.map((m) => (
-            <option value={m.div}>{m.div}</option>
+            <option value={m.div} style={{backgroundColor: "black", color: "white"}}>{m.div}</option>
           ))}
         </select>
 
-        {lista.length === 0 ? (
-          <h3>No data found</h3>
+        {(filter === "all" && lista.length !== 0) ? (
+          <Defaulttable attenddata={lista} />
         ) : (
-          <BasicTable attenddata={lista} />
+          <BasicTable attenddata={lista} filter={filter} divdata = {divdata} />
+          // <></>
         )}
       </div>
     </div>

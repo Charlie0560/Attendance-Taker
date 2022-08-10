@@ -1,9 +1,31 @@
-a{
-    color: black;
+a {
+  color: white;
 }
-.errdiv{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 15%;
+.errdiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15%;
+}
+body {
+  background-image: radial-gradient(
+    circle 610px at 5.2% 51.6%,
+    rgba(5, 8, 114, 1) 0%,
+    rgba(7, 3, 53, 1) 97.5%
+  );
+  background-image: linear-gradient( 109.6deg,  rgba(0,0,0,1) 11.2%, rgba(11,132,145,1) 91.1% );
+  background-image: linear-gradient( 109.6deg,  rgba(36,45,57,1) 11.2%, rgba(16,37,60,1) 51.2%, rgba(0,0,0,1) 98.6% );
+  color: white;
+}
+input,
+select,
+select option{
+    background-color: transparent;
+    border: 1px solid white;
+    color: white;
+    padding-left: 3px;
+}
+input::placeholder{
+    color: white;
+    padding: 3px;
 }

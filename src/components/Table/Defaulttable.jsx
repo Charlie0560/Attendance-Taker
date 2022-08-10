@@ -10,44 +10,62 @@ import moment from "moment-timezone";
 import { Grid, GridColumn, GridToolbar } from "@progress/kendo-react-grid";
 import { ExcelExport } from "@progress/kendo-react-excel-export";
 
-function BasicTable({ attenddata, filter , divdata}) {
+function Defaulttable({ attenddata }) {
   const _export = React.useRef(null);
-  console.log(filter);
   const exportExport = (students) => {
     if (_export.current !== null) {
       _export.current.save(students);
     }
   };
   return (
-    <TableContainer component={Paper} style={{backgroundColor: "transparent"}}>
-     <Table sx={{ minWidth: 650 }} aria-label="simple table">
+    <TableContainer
+      component={Paper}
+      style={{backgroundColor: "transparent" , boxShadow: "rgba(0, 0, 0, 0.438) 0px 5px 15px"}}
+    >
+      <Table sx={{ minWidth: 650 }}  aria-label="simple table">
         <TableHead>
-          <TableRow >
-            <TableCell style={{color: "white"}}>Subject Name</TableCell>
-            <TableCell style={{color: "white"}} align="right">Teacher Name</TableCell>
-            <TableCell style={{color: "white"}} align="right">Lecture No.</TableCell>
-            <TableCell style={{color: "white"}} align="right">Div</TableCell>
-            <TableCell style={{color: "white"}} align="right">Date</TableCell>
-            <TableCell style={{color: "white"}} align="right">Excel</TableCell>
+          <TableRow>
+            <TableCell style={{ color: "white" }}>Subject Name</TableCell>
+            <TableCell style={{ color: "white" }} align="right">
+              Teacher Name
+            </TableCell>
+            <TableCell style={{ color: "white" }} align="right">
+              Lecture No.
+            </TableCell>
+            <TableCell style={{ color: "white" }} align="right">
+              Div
+            </TableCell>
+            <TableCell style={{ color: "white" }} align="right">
+              Date
+            </TableCell>
+            <TableCell style={{ color: "white" }} align="right">
+              Excel
+            </TableCell>
             {/* <TableCell style={{color: "white"}} align="right">PDF</TableCell> */}
           </TableRow>
         </TableHead>
         <TableBody>
-          {attenddata.map((row) => ( row.div === filter && 
-            (<TableRow
+          {attenddata.map((row) => (
+            <TableRow
               key={row.name}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
-              <TableCell style={{color: "white"}} component="th" scope="row">
+              <TableCell style={{ color: "white" }} component="th" scope="row">
                 {row.subject}
               </TableCell>
-              <TableCell style={{color: "white"}} align="right">{row.teacher}</TableCell>
-              <TableCell style={{color: "white"}} align="right">{row.lectureno}</TableCell>
-              <TableCell style={{color: "white"}} align="right">{row.div}</TableCell>
-              <TableCell style={{color: "white"}} align="right">
+              <TableCell style={{ color: "white" }} align="right">
+                {row.teacher}
+              </TableCell>
+              <TableCell style={{ color: "white" }} align="right">
+                {row.lectureno}
+              </TableCell>
+              <TableCell style={{ color: "white" }} align="right">
+                {row.div}
+              </TableCell>
+              <TableCell style={{ color: "white" }} align="right">
                 {moment(row.date).format("YYYY-MM-DD")}
               </TableCell>
-              <TableCell style={{color: "white"}} align="right">
+              <TableCell style={{ color: "white" }} align="right">
                 <label
                   htmlFor="export"
                   className="download"
@@ -90,12 +108,12 @@ function BasicTable({ attenddata, filter , divdata}) {
                 </ExcelExport>
               </TableCell>
               {/* <TableCell style={{color: "white"}} align="right"><button>Download</button></TableCell> */}
-            </TableRow>) 
-          ) )}
+            </TableRow>
+          ))}
         </TableBody>
       </Table>
     </TableContainer>
   );
 }
 
-export default BasicTable;
+export default Defaulttable;
