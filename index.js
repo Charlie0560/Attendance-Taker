@@ -5,6 +5,8 @@ const dotenv = require("dotenv");
 const studentRoute = require("./routes/students");
 const attendanceRoute = require("./routes/attendance");
 const teacherRoute = require("./routes/teachers");
+const divisionRoute = require("./routes/division");
+const batchRoute = require("./routes/batch");
 
 dotenv.config();
 
@@ -16,13 +18,11 @@ try {
   console.log(err);
 }
 app.use(express.json());
-app.get("/",(req,res)=>{
-  res.send("App is running");
-})
-app.use("/api/student",studentRoute);
-app.use("/api/attendance",attendanceRoute);
-app.use("/api/teacher",teacherRoute);
-
+app.use("/api/student", studentRoute);
+app.use("/api/attendance", attendanceRoute);
+app.use("/api/teacher", teacherRoute);
+app.use("/api/div", divisionRoute);
+app.use("/api/batch", batchRoute);
 
 app.listen(5000, () => {
   console.log("Backend is running!");

@@ -6,6 +6,10 @@ var AttedanceSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    batch:{
+      type:String
+    }
+    ,
     subject: {
       type: String,
       required: true,
@@ -24,15 +28,19 @@ var AttedanceSchema = new mongoose.Schema(
       type: Date,
       default: Date.now,
     },
+    attdata:{
+      type:Array,
+      default:[]
+    },
     students: {
       type: Array,
       default: [],
       rollno: {
         type: Number,
+        unique: true
       },
-      studentname: {
+      status: {
         type: String,
-        trim: true,
       },
     },
   },

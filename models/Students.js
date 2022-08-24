@@ -10,7 +10,6 @@ var StudentsSchema = new mongoose.Schema(
     email: {
       type: String,
       unique: true,
-      lowercase: true,
       required: true,
     },
     password: {
@@ -23,10 +22,20 @@ var StudentsSchema = new mongoose.Schema(
     rollno: {
       type: Number,
       required: true,
+      unique: true
     },
     div: {
       type: String,
+      required: true
     },
+    batch:{
+      type:String,
+      required: true
+    },
+    role: {
+      type:String,
+      default: "student"
+    }
   },
   { timestamps: true }
 );

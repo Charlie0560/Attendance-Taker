@@ -5,37 +5,129 @@ let timeout;
 let deleid;
 router.post("/takeattendace", async (req, res) => {
   try {
-    const { div, subject, teacher, lectureno, generatedcode } = req.body;
+    const { div, subject, teacher, lectureno, generatedcode, batch } = req.body;
     const newAttendance = new Attendance({
       div,
       subject,
       teacher,
       lectureno,
       generatedcode,
+      batch,
     });
     const attendance = await newAttendance.save();
-    deleid = attendance.id;
+    // deleid = attendance.id;
     res.status(200).json(attendance);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
-
-router.put("/deletecode/:id",async(req,res)=>{
-  try {
-    const codeid = req.params.id;
-    const att = await Attendance.findByIdAndUpdate(codeid,{ generatedcode: "" });
-    // console.log(att);
-    res.status(200).json("Code deleted successfully");
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
   }
-})
+});
 
-const deletecode = async () => {
-  
-};
+router.put("/afd/:id", async (req, res) => {
+  const attendacneid = req.params.id;
+
+  const attendance = await Attendance.findById(attendacneid);
+  await attendance.updateOne({
+    $push: {
+      students: {
+        rollno: 32301,
+        status: "A",
+      },
+    },
+  });
+  // atte.updateOne({
+  //   $push: {
+  //     students: {
+  //       rollno: 32301,
+  //       status: "A",
+  //     },
+  //   }
+  // });
+  res.status(200).json(attendance);
+});
+
+router.put("/deletecode/:id", async (req, res) => {
+  try {
+    const attendacneid = req.params.id;
+    await Attendance.findByIdAndUpdate(attendacneid, {
+      generatedcode: "",
+    });
+    const attdata = [];
+    const attendance = await Attendance.findById(attendacneid);
+    const ul = req.body.ul;
+    const ll = req.body.ll;
+    let n = attendance.students.length;
+    for (let j = 0; j < n; j++) {
+      attdata.push({ rollno: attendance.students[j].rollno, status: "P" });
+    }
+    for (let i = ll; i <= ul; i++) {
+      attdata.push({ rollno: i, status: "A" });
+    }
+    attdata.sort((a, b) => a.rollno - b.rollno);
+    for (let k = 0; k < attdata.length - 1; k++) {
+      if (attdata[k].rollno == attdata[k + 1].rollno) {
+        const index = attdata.indexOf(attdata[k + 1]);
+        attdata.splice(index, 1);
+      }
+    }
+
+    await Attendance.findByIdAndUpdate(attendacneid, { attdata });
+    attendance.students.sort((a, b) => a.rollno - b.rollno);
+    for (let k = 0; k < attendance.students.length - 1; k++) {
+      if (attendance.students[k].rollno == attendance.students[k + 1].rollno) {
+        const index = attendance.students.indexOf(attendance.students[k + 1]);
+        attendance.students.splice(index, 1);
+      }
+    }
+    attendance.save();
+    res.status(200).json(attendance);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error);
+  }
+});
+
+// router.put("/deletecode/:id", async (req, res) => {
+//   try {
+//     const codeid = req.params.id;
+//     const att = await Attendance.findByIdAndUpdate(codeid, {
+//       generatedcode: "",
+//     });
+//     const attendacneid = att.id;
+
+//     const attendance = await Attendance.findById(attendacneid);
+
+//     attendance.students.sort((a, b) => a.rollno - b.rollno);
+//     const atte = await Attendance.findById(attendacneid);
+//     let N = atte.students.length;
+//     let diff = atte.students[0].rollno - 0;
+
+//     for (let i = 0; i < N; i++) {
+//       if (atte.students[i].rollno - i != diff) {
+//         while (diff < atte.students[i].rollno - i) {
+//           await atte.updateOne({
+//             $push: {
+//               students: {
+//                 rollno: diff + i,
+//                 status: "A",
+//               },
+//             },
+//           });
+//           diff++;
+//         }
+//       }
+//     }
+
+//     attendance.students.sort((a, b) => a.rollno - b.rollno);
+//     attendance.save();
+//     res.status(200).json(attendance);
+//   } catch (err) {
+//     console.log(err);
+//     res.status(500).json(err);
+//   }
+// });
+
+const deletecode = async () => {};
 //find by id
 router.put("/giveattendace/:id", async (req, res) => {
   const attendacneid = req.params.id;
@@ -62,7 +154,7 @@ router.put("/giveattendace/:id", async (req, res) => {
 router.put("/giveattendace", async (req, res) => {
   const attendancecode = req.body.code;
   const attendance = await Attendance.find({ generatedcode: attendancecode });
-  // console.log(attendance[0].id)
+  // console.log(attendance);
   if (attendance !== null) {
     try {
       const rid = attendance[0].id;
@@ -122,6 +214,26 @@ router.get("/getbydiv/:divname", async (req, res) => {
   try {
     const div = req.params.divname;
     const data = await Attendance.find({ div });
+    res.status(200).json(data);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+});
+router.get("/getbybatch/:batchname", async (req, res) => {
+  try {
+    const batch = req.params.batchname;
+    const data = await Attendance.find({ batch });
+    res.status(200).json(data);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+router.get("/getbydivid/:id", async (req, res) => {
+  try {
+    const div = req.params.id;
+    const data = await Attendance.findById(div);
     res.status(200).json(data);
   } catch (err) {
     res.status(500).json(err);
