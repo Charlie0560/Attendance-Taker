@@ -20,15 +20,15 @@ export default function TeachersTable({teachers}) {
         }
     }
   return (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper} style={{backgroundColor: "transparent" , boxShadow: "rgba(0, 0, 0, 0.438) 0px 5px 15px"}}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>Name</TableCell>
-            <TableCell align="right">Email</TableCell>
-            <TableCell align="right">Department</TableCell>
-            {/* <TableCell align="right">Password</TableCell> */}
-            <TableCell align="right">Unique ID</TableCell>
+            <TableCell style={{color: "white"}}>Name</TableCell>
+            <TableCell style={{color: "white"}} align="right">Email</TableCell>
+            <TableCell style={{color: "white"}} align="right">Department</TableCell>
+            {/* <TableCell style={{color: "white"}} align="right">Password</TableCell> */}
+            <TableCell style={{color: "white"}} align="right">Unique ID</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -37,14 +37,14 @@ export default function TeachersTable({teachers}) {
             //   key={row.fullname}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
-              <TableCell component="th" scope="row">
+              <TableCell style={{color: "white"}} component="th" scope="row">
                 {row.fullname}
               </TableCell>
-              <TableCell align="right">{row.email}</TableCell>
-              <TableCell align="right">{row.department}</TableCell>
-              {/* <TableCell align="right">{row.password}</TableCell> */}
-              <TableCell align="right">{row.uniqueID}</TableCell>
-              <TableCell align="right"><button onClick={()=>handleDelete(row._id)} style={{backgroundColor: 'gray', color: 'white' , cursor: 'pointer'}}>Delete</button></TableCell>
+              <TableCell style={{color: "white"}} align="right">{row.email}</TableCell>
+              <TableCell style={{color: "white"}} align="right">{row.department}</TableCell>
+              {/* <TableCell style={{color: "white"}} align="right">{row.password}</TableCell> */}
+              <TableCell style={{color: "white"}} align="right">{row.uniqueID}</TableCell>
+              <TableCell style={{color: "white"}} align="right"><button onClick={()=>handleDelete(row._id)} style={{backgroundColor: 'gray', color: 'white' , cursor: 'pointer'}}>Delete</button></TableCell>
             </TableRow>
           ))}
         </TableBody>

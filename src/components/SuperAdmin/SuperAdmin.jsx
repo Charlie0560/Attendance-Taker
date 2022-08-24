@@ -42,6 +42,7 @@ function SuperAdmin() {
   return (
     <div>
       <Header />
+      <div className="backbtn"><a href="http://localhost:3000/admin/"><i class="fa-solid fa-angle-left"></i>r</a></div>
       <center>
         <h3>Add a Teacher</h3>
       </center>

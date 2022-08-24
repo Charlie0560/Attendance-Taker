@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import "./login.css";
 import axios from "axios";
 
@@ -8,17 +8,21 @@ function SignUp() {
   const password = useRef();
   const rollno = useRef();
   const div = useRef();
+  const batch = useRef();
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const data = {
       fullname: fullname.current.value,
       div: div.current.value,
       email: email.current.value,
       password: password.current.value,
       rollno: rollno.current.value,
+      batch: batch.current.value,
     };
-    if (!fullname || !email || !password || !rollno || !div) {
+    if (!fullname || !email || !password || !rollno || !div || !batch) {
       document.getElementById("alert").innerHTML = "All Fields Are required.";
     }
     if (password.current.value.length < 6) {
@@ -26,10 +30,25 @@ function SignUp() {
         "Password Should be Minimum of 6 Characters";
     } else {
       try {
-        await axios.post("/student/signup", data);
+        const student = await axios.post("/student/signup", data);
+        const divisionname = await axios.get(
+          `/div/getdivname/${div.current.value}`
+        );
+        const batchname = await axios.get(
+          `/batch/getbatchname/${batch.current.value}`
+        );
+        // console.log(divisionname.data);
+        const didata = divisionname.data;
+        const batchdata = batchname.data;
+        // console.log(didata[0]._id);
+        await axios.put(`/div/addstudent/${didata[0]._id}`, student.data);
+        await axios.put(`/batch/addstudent/${batchdata[0]._id}`, student.data);
+        setLoading(false);
+        window.alert("SignUp Successfull");
         window.location.replace("/login");
       } catch (err) {
         // console.log(err);
+        setLoading(false);
         window.alert("Something wents wrong");
       }
     }
@@ -40,7 +59,7 @@ function SignUp() {
       <form onSubmit={handleSubmit}>
         <div className="otpbox loginbox">
           <div className="otpcontainer logincontainer">
-            <div className="otphead loginhead">
+            <div className="otphead loginhead signuphead">
               <p>Sign Up</p>
             </div>
             <input
@@ -70,9 +89,15 @@ function SignUp() {
               placeholder="Divsion(eg.TE7)"
               ref={div}
             />
+            <input
+              required
+              type="text"
+              placeholder="Batch(eg.L7)"
+              ref={batch}
+            />
             <center>
               <button className="button-17" type="submit">
-                Submit
+                {loading ? "loading..." : "Submit"}
               </button>
               <br />
               <div className="alert" id="errdiv"></div>

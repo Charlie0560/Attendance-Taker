@@ -8,14 +8,14 @@ import { useSelector } from "react-redux";
 function Homepage() {
   const [code, setCode] = useState("");
   const user = useSelector((state) => state.user.user.user);
-  
+
   const handleSubmit = async () => {
     try {
       const data = {
         code: code,
         students: {
           rollno: user.rollno,
-          studentname: user.fullname,
+          status: "P",
         },
       };
       const giveatt = await axios.put("/attendance/giveattendace", data);
@@ -23,7 +23,7 @@ function Homepage() {
       window.alert("Attendance given successfully");
     } catch (err) {
       console.log(err);
-      window.alert("Code is expired or wrong");
+      window.alert("Try Again");
     }
   };
   return (
@@ -32,10 +32,14 @@ function Homepage() {
       <div className="otpbox">
         <div className="otpcontainer">
           <div className="otphead">
-            <p>Enter OTP here</p>
+            <p>Enter Attendance Code here</p>
             <i className="fa-solid fa-info"></i>
           </div>
-          <input type="text" maxLength="6" onChange={(e) => setCode(e.target.value)} />
+          <input
+            type="text"
+            maxLength="6"
+            onChange={(e) => setCode(e.target.value)}
+          />
           <center>
             <button className="button-17" type="submit" onClick={handleSubmit}>
               Submit

@@ -1,11 +1,11 @@
 .logincontainer input {
   font-size: 14px;
 }
-.alert{
+.alert {
   color: red;
 }
 .logincontainer {
-  padding-bottom: 4%;
+  padding-bottom: 3%;
   /* padding-top: 5%; */
   margin: 2%;
   width: 40%;
@@ -18,6 +18,10 @@
 }
 .loginhead p {
   font-size: 30px;
+  padding-top: 0%;
+}
+.signuphead p {
+  margin-bottom: 3%;
 }
 .loginpage h1 {
   text-align: center;
@@ -26,24 +30,23 @@
 .loginbox {
   margin-top: 0%;
 }
-input:focus{
+input:focus {
   outline: none;
 }
 @media (max-width: 800px) {
-    .logincontainer{
-        width: 90%;
-    }
-    .loginpage{
-
-        margin-top: 17%;
-    }
-    .logincontainer{
-        padding-bottom: 10%;
-        padding-top: -2%;
-    }
+  .logincontainer {
+    width: 90%;
+  }
+  .loginpage {
+    margin-top: 17%;
+  }
+  .logincontainer {
+    padding-bottom: 10%;
+    padding-top: -2%;
+  }
 }
 @media (max-width: 300px) {
-    .otpcontainer input{
-        width: 90%;
-    }
+  .otpcontainer input {
+    width: 90%;
+  }
 }

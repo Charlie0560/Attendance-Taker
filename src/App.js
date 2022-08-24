@@ -11,6 +11,12 @@ import SuperAdmin from "./components/SuperAdmin/SuperAdmin";
 import { useState } from "react";
 import axios from "axios";
 import Header from "./components/HomePage/Header";
+import TDashboard from "./components/Teachers Dashboard/TDashboard";
+import Subjects from "./components/Subjects/Subjects";
+import Divisions from "./components/Divisions/Divisions";
+import Batches from "./components/Batches/Batches";
+import MainAdmin from "./components/SuperAdmin/MainAdmin";
+import DivData from "./components/SuperAdmin/DivData";
 
 function App() {
   const user = useSelector(selectUser);
@@ -29,27 +35,47 @@ function App() {
     }
   };
   authenticate();
-
+  const divs = [1,2,3,4,5,6,7,8,9,10,11];
+  const bdivs = [1,2,3,4];
+  
   return (
     <>
       {user.user ? (
         <Router>
           <Routes>
             <Route exact path="/" element={<Homepage />} />
-            <Route exact path="/profile" element={<Profile />} />
             <Route
               exact
               path="/dashboard"
               element={
                 vadmin !== null ? (
-                  <Dashboard />
+                  <TDashboard />
                 ) : (
                   <>
                     <Header />{" "}
                     <div className="errdiv">
                       <center>
-                      <h2>Sorry ,You are not a teacher or admin</h2>
-
+                        <h2>Sorry ,You are not a teacher or admin</h2>
+                      </center>
+                    </div>
+                  </>
+                )
+              }
+            />
+            <Route exact path="/divisions/:year" element={<Divisions divs={divs}/>} />
+            <Route exact path="/:div/:labname/dashboard" element={<Batches/>} />
+            <Route
+              exact
+              path="/division/subjects/:div"
+              element={
+                vadmin !== null ? (
+                  <Subjects />
+                ) : (
+                  <>
+                    <Header />{" "}
+                    <div className="errdiv">
+                      <center>
+                        <h2>Sorry ,You are not a teacher or admin</h2>
                       </center>
                     </div>
                   </>
@@ -58,10 +84,96 @@ function App() {
             />
             <Route
               exact
+              path="/:div/subjects/:subjectname/dashboard"
+              element={
+                vadmin !== null ? (
+                  <Dashboard />
+                ) : (
+                  <>
+                    <Header />{" "}
+                    <div className="errdiv">
+                      <center>
+                        <h2>Sorry ,You are not a teacher or admin</h2>
+                      </center>
+                    </div>
+                  </>
+                )
+              }
+            />
+            <Route
+              exact
+              path="/:div/:batch/:lab/dashboard/lab"
+              element={
+                vadmin !== null ? (
+                  <Dashboard />
+                ) : (
+                  <>
+                    <Header />{" "}
+                    <div className="errdiv">
+                      <center>
+                        <h2>Sorry ,You are not a teacher or admin</h2>
+                      </center>
+                    </div>
+                  </>
+                )
+              }
+            />
+            <Route exact path="/profile" element={<Profile />} />
+
+            <Route
+              exact
               path="/admin"
               element={
                 user.user.user.superadminid === "5432112345" ? (
+                  <MainAdmin />
+                ) : (
+                  <>
+                    <Header />{" "}
+                    <div className="errdiv">
+                      <h2>Sorry ,You are not a teacher or admin</h2>
+                    </div>
+                  </>
+                )
+              }
+            />
+            <Route
+              exact
+              path="/admin/teachers"
+              element={
+                user.user.user.superadminid === "5432112345" ? (
                   <SuperAdmin />
+                ) : (
+                  <>
+                    <Header />{" "}
+                    <div className="errdiv">
+                      <h2>Sorry ,You are not a teacher or admin</h2>
+                    </div>
+                  </>
+                )
+              }
+            />
+            <Route
+              exact
+              path="/admin/divisions"
+              element={
+                user.user.user.superadminid === "5432112345" ? (
+                  <DivData />
+                ) : (
+                  <>
+                    <Header />{" "}
+                    <div className="errdiv">
+                      <h2>Sorry ,You are not a teacher or admin</h2>
+                    </div>
+                  </>
+                )
+              }
+            />
+            <Route
+              exact
+              path="/admin/batches"
+              element={
+                user.user.user.superadminid === "5432112345" ? (
+                  <MainAdmin />
                 ) : (
                   <>
                     <Header />{" "}
