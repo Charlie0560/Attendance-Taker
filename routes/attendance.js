@@ -3,7 +3,7 @@ const Attendance = require("../models/Attendance");
 
 let timeout;
 let deleid;
-router.post("/takeattendace", async (req, res) => {
+router.post("/takeattendance", async (req, res) => {
   try {
     const { div, subject, teacher, lectureno, generatedcode, batch } = req.body;
     const newAttendance = new Attendance({
