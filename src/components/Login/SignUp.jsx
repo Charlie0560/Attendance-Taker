@@ -30,19 +30,19 @@ function SignUp() {
         "Password Should be Minimum of 6 Characters";
     } else {
       try {
-        const student = await axios.post("/student/signup", data);
+        const student = await axios.post("/api/student/signup", data);
         const divisionname = await axios.get(
-          `/div/getdivname/${div.current.value}`
+          `/api/div/getdivname/${div.current.value}`
         );
         const batchname = await axios.get(
-          `/batch/getbatchname/${batch.current.value}`
+          `/api/batch/getbatchname/${batch.current.value}`
         );
         // console.log(divisionname.data);
         const didata = divisionname.data;
         const batchdata = batchname.data;
         // console.log(didata[0]._id);
-        await axios.put(`/div/addstudent/${didata[0]._id}`, student.data);
-        await axios.put(`/batch/addstudent/${batchdata[0]._id}`, student.data);
+        await axios.put(`/api/div/addstudent/${didata[0]._id}`, student.data);
+        await axios.put(`/api/batch/addstudent/${batchdata[0]._id}`, student.data);
         setLoading(false);
         window.alert("SignUp Successfull");
         window.location.replace("/login");

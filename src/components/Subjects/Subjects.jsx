@@ -26,7 +26,7 @@ function Subjects() {
   // console.log(divname);
   useEffect(() => {
     const divdata = async () => {
-      const division = await axios.get(`/div/getdivname/${divname}`);
+      const division = await axios.get(`/api/div/getdivname/${divname}`);
       setDivid(division.data[0]._id);
       setSubjects(division.data[0].subject);
       setLabs(division.data[0].labs);
@@ -52,14 +52,14 @@ function Subjects() {
     };
     try {
       if (subdata.sub_name !== "") {
-        await axios.put(`/div/addsubject/${divid}`, subdata);
+        await axios.put(`/api/div/addsubject/${divid}`, subdata);
       }
       if (labdata.labname !== "") {
-        await axios.put(`/div/addlabs/${divid}`, labdata);
+        await axios.put(`/api/div/addlabs/${divid}`, labdata);
       }
 
       if (batchdata.batchname !== "") {
-        await axios.put(`/div/addbatches/${divid}`, batchdata);
+        await axios.put(`/api/div/addbatches/${divid}`, batchdata);
       }
       window.alert("Data Updated Successfully");
     } catch (err) {

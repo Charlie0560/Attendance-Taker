@@ -11,16 +11,21 @@ function Homepage() {
 
   const handleSubmit = async () => {
     try {
-      const data = {
-        code: code,
-        students: {
-          rollno: user.rollno,
-          status: "P",
-        },
-      };
-      const giveatt = await axios.put("/attendance/giveattendace", data);
-      console.log(giveatt);
-      window.alert("Attendance given successfully");
+      if(code!==""){
+        const data = {
+          code: code,
+          students: {
+            rollno: user.rollno,
+            status: "P",
+          },
+        };
+        const giveatt = await axios.put("/api/attendance/giveattendace", data);
+        console.log(giveatt);
+        window.alert("Attendance given successfully");
+      }else{
+        
+        window.alert("Please Enter a Attendance Code");
+      }
     } catch (err) {
       console.log(err);
       window.alert("Try Again");

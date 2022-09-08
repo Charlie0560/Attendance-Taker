@@ -11,7 +11,7 @@ import axios from "axios";
 export default function TeachersTable({teachers}) {
     const handleDelete = async(id)=>{
         try{
-            await axios.delete(`/teacher/delete/${id}`);
+            await axios.delete(`/api/teacher/delete/${id}`);
             window.alert("Teacher Deleted Successfully");
         }
         catch(err){

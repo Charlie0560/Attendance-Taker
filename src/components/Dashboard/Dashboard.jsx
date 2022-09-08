@@ -38,12 +38,12 @@ function Dashboard() {
   useEffect(() => {
     const fetchdiv = async () => {
       if (details.length === 8) {
-        const divs = await axios.get(`/batch/getbatchname/${batchname}`);
+        const divs = await axios.get(`/api/batch/getbatchname/${batchname}`);
         setUlimit(divs.data[0].ul);
         setLlimit(divs.data[0].ll);
         // console.log(divs.data)
       } else {
-        const divs = await axios.get(`/div/getdivname/${divname}`);
+        const divs = await axios.get(`/api/div/getdivname/${divname}`);
         setUlimit(divs.data[0].ul);
         setLlimit(divs.data[0].ll);
       }
@@ -66,9 +66,9 @@ function Dashboard() {
     // const limitdata =[];
     let div;
     if (details.length === 8) {
-      div = await axios.get(`/batch/getbatchname/${batchname}`);
+      div = await axios.get(`/api/batch/getbatchname/${batchname}`);
     } else {
-      div = await axios.get(`/div/getdivname/${divname}`);
+      div = await axios.get(`/api/div/getdivname/${divname}`);
     }
     const limitdata = {
       ul: div.data[0].ul,
@@ -76,10 +76,10 @@ function Dashboard() {
     };
     try {
       // console.log(data);
-      const attdata = await axios.post("/attendance/takeattendace", data);
+      const attdata = await axios.post("/api/attendance/takeattendance", data);
       // attendances();
       sleep(7000);
-      axios.put(`/attendance/deletecode/${attdata.data._id}`, limitdata);
+      axios.put(`/api/attendance/deletecode/${attdata.data._id}`, limitdata);
       setFetching(false);
     } catch (err) {
       console.log(err);

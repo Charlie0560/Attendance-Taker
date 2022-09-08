@@ -24,7 +24,7 @@ function Batches() {
 //   console.log(details);
   useEffect(() => {
     const divdata = async () => {
-      const division = await axios.get(`/div/getdivname/${divname}`);
+      const division = await axios.get(`/api/div/getdivname/${divname}`);
       setBatches(division.data[0].batches);
     };
     divdata();

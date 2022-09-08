@@ -12,7 +12,7 @@ import axios from "axios";
 import moment from "moment-timezone";
 
 export default function AttSheet({ numof_students }) {
-  const [students, setStudents] = useState([]);
+  // const [students, setStudents] = useState([]);
   const [attendances, setAttendances] = useState([]);
 
   var path = window.location.href;
@@ -24,27 +24,29 @@ export default function AttSheet({ numof_students }) {
   if (checklab.length > 1) {
     subjectname = checklab[0] + " " + checklab[1];
   }
-  useEffect(() => {
-    const divdata = async () => {
-      if (details.length === 8) {
-        const batchname = details[4];
-        const batch = await axios.get(`/batch/getbatchname/${batchname}`);
-        setStudents(batch.data[0].students);
-      } else {
-        const divname = details[3];
-        const division = await axios.get(`/div/getdivname/${divname}`);
-        setStudents(division.data[0].students);
-      }
-    };
-    divdata();
-  }, [details]);
+  // useEffect(() => {
+  //   const divdata = async () => {
+  //     if (details.length === 8) {
+  //       const batchname = details[4];
+  //       const batch = await axios.get(`/api/batch/getbatchname/${batchname}`);
+  //       setStudents(batch.data[0].students);
+  //     } else {
+  //       const divname = details[3];
+  //       const division = await axios.get(`/api/div/getdivname/${divname}`);
+  //       setStudents(division.data[0].students);
+  //     }
+  //   };
+  //   divdata();
+  // }, [details]);
 
-  const attarr = [{}];
+  let attarr = [{}];
   useEffect(() => {
     const divdata = async () => {
       if (details.length === 8) {
         const batchname = details[4];
-        const batch = await axios.get(`/attendance/getbybatch/${batchname}`);
+        const batch = await axios.get(
+          `/api/attendance/getbybatch/${batchname}`
+        );
         for (let i = 0; i < batch.data.length; i++) {
           if (batch.data[i].subject === subjectname) {
             attarr.push(batch.data[i]);
@@ -55,7 +57,7 @@ export default function AttSheet({ numof_students }) {
         // console.log(batch.data);
       } else {
         const divname = details[3];
-        const division = await axios.get(`/attendance/getbydiv/${divname}`);
+        const division = await axios.get(`/api/attendance/getbydiv/${divname}`);
         for (let i = 0; i < division.data.length; i++) {
           if (division.data[i].subject === subjectname) {
             attarr.push(division.data[i]);
@@ -67,12 +69,17 @@ export default function AttSheet({ numof_students }) {
       }
     };
     divdata();
-  }, [details, subjectname, attarr]);
+  }, [attarr, details, subjectname]);
 
   const NUMBER_OF_attdata_PER_BRANCH = numof_students; // this is the max number of attdata per branch
+  let sturollno = [];
+  for (let i = 0; i <= numof_students; i++) {
+    sturollno.push(i + 1);
+  }
+
   // const NUMBER_OF_attdata_PER_BRANCH = 3; // this is the max number of attdata per branch
   let arrLp = [];
-  for (let j = 0; j < NUMBER_OF_attdata_PER_BRANCH; j++) {
+  for (let j = 0; j <= NUMBER_OF_attdata_PER_BRANCH; j++) {
     let arrayLookup = [];
     for (let i = 1; i < attendances.length; i++) {
       arrayLookup.push(attendances[i].attdata[j].status);
@@ -80,6 +87,20 @@ export default function AttSheet({ numof_students }) {
     arrLp.push(arrayLookup);
   }
   // console.log(arrLp);
+
+  const backup = console.warn;
+
+  console.warn = function filterWarnings(msg) {
+    const supressedWarnings = ["warning text", "other warning text"];
+
+    if (!supressedWarnings.some((entry) => msg.includes(entry))) {
+      backup.apply(console, arguments);
+    }
+  };
+
+  console.warn("I'll appear as a warning");
+
+  console.warn("warning text - I will not");
   return (
     <TableContainer
       component={Paper}
@@ -91,14 +112,11 @@ export default function AttSheet({ numof_students }) {
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell style={{ color: "white", width: "70px" }}>
+            <TableCell style={{ color: "white", width: "100px" }}>
               <TableRow>
                 <TableCell style={{ color: "white", width: "70px" }}>
-                  Roll No
+                  <center>Roll No</center>
                 </TableCell>
-                {/* <TableCell style={{ color: "white", width: "150px" }}>
-                  Student Name
-                </TableCell> */}
               </TableRow>
             </TableCell>
 
@@ -116,44 +134,65 @@ export default function AttSheet({ numof_students }) {
         </TableHead>
         <TableBody>
           <TableRow>
-            <TableCell style={{ width: "260px" }}>
-              {students.map((s) => (
-                <TableRow>
-                  <TableCell style={{ color: "white", width: "70px" }}>
-                    {s.rollno}
-                  </TableCell>
-                  {/* <TableCell style={{ color: "white", width: "150px" }}>
-                    {s.fullname}
-                  </TableCell> */}
-                </TableRow>
-              ))}
-            </TableCell>
-            <TableCell>
-              {arrLp.map((a, i) => (
-                <TableRow>
-                  {a.map((x) => (
-                    <TableCell
-                      style={
-                        x === "A"
-                          ? {
-                              color: "red",
-                              width: "80px",
-                              textAlign: "center",
-                              border: "1px solid red",
+            <div className="tableclass">
+              <TableRow>
+                {sturollno.map((s) => (
+                  <>
+                    <TableRow>
+                      <TableCell
+                        style={{
+                          color: "white",
+                          width: "70px",
+                          textAlign: "center",
+                        }}
+                      >
+                        {s}
+                      </TableCell>
+                    </TableRow>
+                  </>
+                ))}
+              </TableRow>
+            </div>
+            <TableCell style={{ paddingTop: "0px" }}>
+              <TableRow>
+                {arrLp.map((a, i) => (
+                  <TableRow>
+                    {a.map((x) => (
+                      <TableCell
+                        style={{
+                          width: "80px",
+                          textAlign: "center",
+                          height: "10px",
+                          paddingTop: "1px",
+                          paddingBottom: "1px",
+                        }}
+                      >
+                        <center>
+                          <p
+                            style={
+                              x === "A"
+                                ? {
+                                    color: "red",
+                                    border: "1px solid red",
+                                    borderRadius: "50%",
+                                    width: "20px",
+                                    height: "20px",
+                                    textAlign: "center",
+                                  }
+                                : {
+                                    color: "green",
+                                  }
                             }
-                          : {
-                              color: "green",
-                              width: "80px",
-                              textAlign: "center",
-                              border: "1px solid green",
-                            }
-                      }
-                    >
-                      {x}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              ))}
+                          >
+                            {" "}
+                            {x}
+                          </p>
+                        </center>
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                ))}
+              </TableRow>
             </TableCell>
           </TableRow>
         </TableBody>

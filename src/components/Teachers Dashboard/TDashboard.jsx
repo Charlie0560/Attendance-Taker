@@ -26,9 +26,9 @@ function TDashboard() {
     const divdata = async () => {
       let division;
       if (batchname !== "") {
-        division = await axios.get(`/batch/getbatchname/${batchname}`);
+        division = await axios.get(`/api/batch/getbatchname/${batchname}`);
       } else {
-        division = await axios.get(`/div/getdivname/${divname}`);
+        division = await axios.get(`/api/div/getdivname/${divname}`);
       }
       // console.log(division.data);
       setLlimit(division.data[0].ll);
@@ -45,9 +45,9 @@ function TDashboard() {
 
     try {
       if (batchname !== "") {
-        await axios.put(`/batch/updatell_ul/${batchname}`, data);
+        await axios.put(`/api/batch/updatell_ul/${batchname}`, data);
       } else {
-        await axios.put(`/div/updatell_ul/${divname}`, data)
+        await axios.put(`/api/div/updatell_ul/${divname}`, data)
       }
 
       

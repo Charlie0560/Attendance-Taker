@@ -26,7 +26,7 @@ function App() {
   const authenticate = async (e) => {
     try {
       const admin = await axios.get(
-        `/teacher/getbyuid/${user.user.user.uniqueID}`
+        `/api/teacher/getbyuid/${user.user.user.uniqueID}`
       );
       // console.log(admin);
       setVadmin(admin.data);

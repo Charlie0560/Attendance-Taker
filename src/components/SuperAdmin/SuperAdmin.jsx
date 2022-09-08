@@ -15,7 +15,7 @@ function SuperAdmin() {
 
   // useEffect(()=>{
   const fetchTeachers = async () => {
-    const res = await axios.get("/teacher/getall");
+    const res = await axios.get("/api/teacher/getall");
     setTeachers(res.data);
   };
   fetchTeachers();
@@ -31,7 +31,7 @@ function SuperAdmin() {
       uniqueID: uid,
     };
     try {
-      await axios.post("/teacher/addteacher", data);
+      await axios.post("/api/teacher/addteacher", data);
       window.alert("Teacher Added Successfully");
     } catch (err) {
       console.log(err);
@@ -42,7 +42,7 @@ function SuperAdmin() {
   return (
     <div>
       <Header />
-      <div className="backbtn"><a href="http://localhost:3000/admin/"><i class="fa-solid fa-angle-left"></i>r</a></div>
+      <div className="backbtn"><a href="https://proxytaker.herokuapp.com/admin/"><i class="fa-solid fa-angle-left"></i></a></div>
       <center>
         <h3>Add a Teacher</h3>
       </center>

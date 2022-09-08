@@ -12,11 +12,11 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("/student/login", {
+      const res = await axios.post("/api/student/login", {
         email: mail,
         password: pass,
       });
-      // const teachersres= await axios.post("/teacher/login", {
+      // const teachersres= await axios.post("/api/teacher/login", {
       //   email: mail,
       //   password: pass,
       // });

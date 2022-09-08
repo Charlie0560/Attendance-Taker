@@ -3,6 +3,9 @@
     column-gap: 5px;
     margin-top: 1%;
 }
+.tableclass{
+    margin-left: 10%;
+}
 .sessiondetails{
     display: flex;
     column-gap: 10px;
