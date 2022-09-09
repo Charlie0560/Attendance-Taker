@@ -1,6 +1,5 @@
 <div id="top"></div>
 
-
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
@@ -24,6 +23,16 @@
   <img src="generate.jpg" alt="Generate" width="25%" height="45%">
   <img src="generateattendance.jpg" alt="Generate attendance" width="25%" height="45%">
   <img src="download.jpg" alt="Download attendance" width="25%" height="45%">
+  <p><b>Latest Version</b></p>
+  <img src="D1.jpg" alt="Download attendance" width="25%" height="45%">
+  <img src="D2.jpg" alt="Download attendance" width="25%" height="45%">
+  <img src="D3.jpg" alt="Download attendance" width="25%" height="45%">
+  <br/>
+  <img src="D4.jpg" alt="Download attendance" width="25%" height="45%">
+  <img src="D5.jpg" alt="Download attendance" width="25%" height="45%">
+  <img src="D6.jpg" alt="Download attendance" width="25%" height="45%">
+  <br/>
+  <img src="D7.jpg" alt="Download attendance" width="25%" height="45%">
    <br/>
     <h2>Admin's Dashboard</h2>
   <p><b>To a teacher with their unique id</b></p>
@@ -33,10 +42,4 @@
 
    <br/>
 
-  
-  
-
-
 </div>
-
-
