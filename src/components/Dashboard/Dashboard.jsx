@@ -6,6 +6,7 @@ import AttSheet from "../AttedanceSheet/AttSheet";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import "../Subjects/subjects.css";
+import Defaulttable from "../Table/Defaulttable";
 
 function Dashboard() {
   const [teacher, setTeacher] = useState("");
@@ -152,7 +153,8 @@ function Dashboard() {
       <div className="dashboardtable">
         <h3>Dashboard</h3>
 
-        <AttSheet numof_students={numof_students} />
+        {/* <AttSheet numof_students={numof_students} /> */}
+        <Defaulttable/>
       </div>
       <Modal
         open={open}
