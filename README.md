@@ -24,15 +24,15 @@
   <img src="generateattendance.jpg" alt="Generate attendance" width="25%" height="45%">
   <img src="download.jpg" alt="Download attendance" width="25%" height="45%">
   <p><b>Latest Version</b></p>
-  <img src="D1.jpg" alt="Download attendance" width="25%" height="45%">
-  <img src="D2.jpg" alt="Download attendance" width="25%" height="45%">
-  <img src="D3.jpg" alt="Download attendance" width="25%" height="45%">
+  <img src="D1.jpeg" alt="Download attendance" width="25%" height="45%">
+  <img src="D2.jpeg" alt="Download attendance" width="25%" height="45%">
+  <img src="D3.jpeg" alt="Download attendance" width="25%" height="45%">
   <br/>
-  <img src="D4.jpg" alt="Download attendance" width="25%" height="45%">
-  <img src="D5.jpg" alt="Download attendance" width="25%" height="45%">
-  <img src="D6.jpg" alt="Download attendance" width="25%" height="45%">
+  <img src="D4.jpeg" alt="Download attendance" width="25%" height="45%">
+  <img src="D5.jpeg" alt="Download attendance" width="25%" height="45%">
+  <img src="D6.jpeg" alt="Download attendance" width="25%" height="45%">
   <br/>
-  <img src="D7.jpg" alt="Download attendance" width="25%" height="45%">
+  <img src="D7.jpeg" alt="Download attendance" width="25%" height="45%">
    <br/>
     <h2>Admin's Dashboard</h2>
   <p><b>To a teacher with their unique id</b></p>
